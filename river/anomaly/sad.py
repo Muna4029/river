@@ -62,6 +62,10 @@ class StandardAbsoluteDeviation(anomaly.base.AnomalyDetector):
         self.variance = stats.Var()
         self.sub_stat = sub_stat
 
+        # Explicitly annotate the attribute with a broad type so mypy accepts
+        # assignments of different estimator classes (Mean or Quantile).
+        self.subtracted_statistic_estimator: object
+
         if self.sub_stat == "mean":
             self.subtracted_statistic_estimator = stats.Mean()
         elif self.sub_stat == "median":
